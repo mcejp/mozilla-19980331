@@ -1,0 +1,69 @@
+Unix Build Instructions
+
+This document explains how to build Mozilla for the Unix platform.
+------------------------------------------------------------------------
+
+Requirements:
+
+  Memory:
+    32MB of RAM, 128MB of swap, recommended 64MB of RAM.
+
+  Tools:
+    GNU C/C++ compiler 2.7.2 or better
+    GNU make 3.74 or better
+    Motif 1.2 (Lestif has been used with limited success)
+
+  Tools that will be helpful later:
+    Perl 5.0
+    CVS 1.8.1
+    RCS
+    gdb 4.16
+
+  NOTE:
+    * gcc version 2.8 has been used successfully.
+      Your mileage may vary.
+
+Build:
+
+  Untar the tar.gz file with the following (or your favorite variant thereof):
+
+    gzip -dc tarball.tar.gz | tar -xvf -
+
+  Set the following environment variables:
+    csh/tcsh:
+      setenv NO_SECURITY 1
+      setenv MOZ_MEDIUM 1
+      setenv MOZILLA_CLIENT 1
+      setenv NO_MDUPDATE 1
+
+    sh/bash/ksh:
+      NO_SECURITY=1
+      MOZ_MEDIUM=1
+      MOZILLA_CLIENT=1
+      NO_MDUPDATE=1
+      export NO_SECURITY MOZ_MEDIUM MOZILLA_CLIENT NO_MDUPDATE
+
+  Debug build is default; optimized build:
+      setenv BUILD_OPT 1
+      (BUILD_OPT=1; export BUILD_OPT)
+
+  Build it.  Default target is "export libs install":
+    cd ns
+    gmake -k
+
+NOTE:
+
+If you haven't got perl:
+
+setenv PERL /bin/echo
+
+gmake -ek
+
+Run the app:
+  Executable lives in ns/cmd/xfe/{ARCHITECTURE}.{DBG|OPT}.OBJ
+    (e.g. ns/cmd/xfe/Linux2.0.31_x86_DBG.OBJ/mozilla-export)
+  Statically-linked app is "mozilla-export"
+  dynamically-linked app is "moz-export"
+
+------------------------------------------------------------------------
+            Copyright © 1998 Netscape Communications Corporation
